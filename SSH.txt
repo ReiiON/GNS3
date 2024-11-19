@@ -1,0 +1,11 @@
+conf t
+hostname Router
+ip domain-name panda.com
+crypto key generate rsa
+1024
+ip ssh version 2
+username rei privilege 15 secret panda
+line vty 0 4
+login local
+transport input ssh
+exit
