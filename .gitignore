@@ -1,0 +1,21 @@
+# Ignorar configuraciones sensibles
+configs/*.json
+configs/*.yaml
+
+# Ignorar logs y archivos temporales
+*.log
+*.tmp
+
+# Ignorar dependencias y compilaciones
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar configuraciones de IDEs
+.vscode/
+.idea/
+
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+

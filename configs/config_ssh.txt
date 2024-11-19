@@ -1,0 +1,8 @@
+ip domain-name nuevodominio.com
+crypto key generate rsa usage-keys label ssh-key modulus 2048
+ip ssh version 2
+username netmiko privilege 15 secret panda
+line vty 0 4
+transport input ssh
+login local
+exit
