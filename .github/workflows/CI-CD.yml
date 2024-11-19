@@ -1,44 +1,58 @@
-name: CI/CD Pipeline for Router Configs
+name: CI/CD para Configuración de Routers
 
 on:
   push:
     branches:
-      - main  # Ejecuta el pipeline cuando hay un push a la rama 'main'
+      - main
   pull_request:
     branches:
-      - main  # También se ejecuta en pull requests hacia 'main'
+      - main
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest  # Utiliza una máquina virtual con Ubuntu
+  test-and-deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3  # Clona tu repositorio en el entorno de GitHub Actions
+      # Paso 1: Chequear el código
+      - name: Checar el código
+        uses: actions/checkout@v3
 
-      - name: Set up Python
+      # Paso 2: Configurar Python
+      - name: Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'  # Usa una versión de Python que se adapte a tus scripts
+          python-version: 3.9
 
-      - name: Install Dependencies
+      # Paso 3: Instalar dependencias
+      - name: Instalar dependencias
         run: |
-          pip install netmiko  # Instala las dependencias necesarias para tus scripts
-          pip install -r requirements.txt  # Si tienes un archivo requirements.txt, instálalo
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run Config-SSH Script
-        run: python secret/config-SSH_secret.py  # Ejecuta el script de SSH
-
-      - name: Run Config-Routers Script
-        run: python secret/config-R_secret.py  # Ejecuta el script de configuración de routers
-
-      - name: Run Verify-Config Script
-        run: python secret/verify_config_secret.py  # Ejecuta el script de verificación
-
-      - name: Commit Results
+      # Paso 4: Instalar black para formatear el código
+      - name: Instalar y ejecutar black
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add .
-          git commit -m "Automated configuration changes and verifications"
-          git push
+          pip install black
+          black scripts/  # Formatea el código en el directorio scripts/
+
+      # Paso 5: Ejecutar script de configuración de routers
+      - name: Configurar Routers
+        run: |
+          python scripts/config-Routers.py
+
+      # Paso 6: Ejecutar script de configuración SSH
+      - name: Configurar SSH
+        run: |
+          python scripts/config-SSH.py
+
+      # Paso 7: Verificar configuraciones
+      - name: Verificar configuración
+        run: |
+          python scripts/verify_config.py
+
+      # Paso 8: Guardar resultados como artefacto
+      - name: Guardar resultados
+        uses: actions/upload-artifact@v3
+        with:
+          name: resultados
+          path: results/

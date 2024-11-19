@@ -1,12 +1,13 @@
 import netmiko
 import json
-from getpass import getpass
 import os
+
 
 # Función para cargar dispositivos desde un archivo JSON
 def load_devices(file_path):
     with open(file_path, "r") as file:
         return json.load(file)
+
 
 # Función para conectarse a un dispositivo
 def connect_device(device):
@@ -24,6 +25,7 @@ def connect_device(device):
         print(f"Error al conectar con {device['host']}: {e}")
         return None
 
+
 # Función para aplicar configuración desde un archivo
 def apply_config_from_file(net_connect, config_file):
     try:
@@ -31,6 +33,7 @@ def apply_config_from_file(net_connect, config_file):
         print(f"Configuración aplicada desde {config_file}")
     except Exception as e:
         print(f"Error al aplicar configuración desde {config_file}: {e}")
+
 
 # Función para aplicar un conjunto de configuraciones
 def apply_config_set(net_connect, config_commands):
@@ -40,6 +43,7 @@ def apply_config_set(net_connect, config_commands):
     except Exception as e:
         print(f"Error al aplicar comandos de configuración: {e}")
 
+
 # Función para verificar la configuración (comando opcional)
 def verify_configuration(net_connect):
     try:
@@ -48,6 +52,7 @@ def verify_configuration(net_connect):
     except Exception as e:
         print(f"Error al verificar la configuración: {e}")
 
+
 # Función para desconectar del dispositivo
 def disconnect_device(net_connect):
     try:
@@ -55,6 +60,7 @@ def disconnect_device(net_connect):
         print("Desconectado del dispositivo.")
     except Exception as e:
         print(f"Error al desconectar: {e}")
+
 
 # Función para obtener un archivo de configuración específico por router
 def get_router_config_file(router_name):
@@ -73,6 +79,7 @@ def get_router_config_file(router_name):
         print(f"No se encontró el archivo de configuración para {router_name}, usando configuración predeterminada.")
         return os.path.join(os.getcwd(), "tests", "common_config.txt")  # Archivo común si no se encuentra el específico
 
+
 # Main loop para conectar y aplicar configuraciones
 def main():
     # Cargar dispositivos desde JSON
@@ -90,6 +97,7 @@ def main():
             apply_config_from_file(net_connect, router_config_file)
             verify_configuration(net_connect)
             disconnect_device(net_connect)
+
 
 if __name__ == "__main__":
     main()
