@@ -1,0 +1,24 @@
+[
+    {
+        "device_type": "cisco_ios",
+        "host": "192.168.42.201",
+        "username": "admin",
+        "password": "pandacode",
+        "router_name": "R1"
+
+    },
+    {
+        "device_type": "cisco_ios",
+        "host": "192.168.42.202",
+        "username": "admin",
+        "password": "pandacode",
+        "router_name": "R2"
+    },
+    {
+        "device_type": "cisco_ios",
+        "host": "192.168.42.203",
+        "username": "admin",
+        "password": "pandacode",
+        "router_name": "R3"
+    }
+]
