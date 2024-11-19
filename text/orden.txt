@@ -1,0 +1,20 @@
+├── configs/            # Archivos JSON o YAML con credenciales y configuraciones
+├── scripts/            # Scripts en Python para automatización con Netmiko
+├── tests/              # Scripts de pruebas automatizadas
+├── README.md           # Instrucciones del proyecto
+└── .github/workflows/  # Configuración de GitHub Actions para CI/CD
+
+
+GNS3-PYTHON
+│
+├── GNS3
+│   ├── configs
+│   │   ├── devices.json           # Archivo con las credenciales de los dispositivos
+│   │   ├── R1.txt                # Configuración específica del router R1
+│   │   ├── R2.txt                # Configuración específica del router R2
+│   │   ├── R3.txt                # Configuración específica del router R3
+│   │   └── common_config.txt     # Configuración común para todos los routers
+│   ├── scripts
+│   │   └── your_script.py        # El script de Python que se ejecuta
+│   └── tests
+│       ├── common_config.txt     # Configuración común para todos los routers (también puede estar aquí)

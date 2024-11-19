@@ -1,0 +1,44 @@
+name: CI/CD Pipeline for Router Configs
+
+on:
+  push:
+    branches:
+      - main  # Ejecuta el pipeline cuando hay un push a la rama 'main'
+  pull_request:
+    branches:
+      - main  # También se ejecuta en pull requests hacia 'main'
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest  # Utiliza una máquina virtual con Ubuntu
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3  # Clona tu repositorio en el entorno de GitHub Actions
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'  # Usa una versión de Python que se adapte a tus scripts
+
+      - name: Install Dependencies
+        run: |
+          pip install netmiko  # Instala las dependencias necesarias para tus scripts
+          pip install -r requirements.txt  # Si tienes un archivo requirements.txt, instálalo
+
+      - name: Run Config-SSH Script
+        run: python secret/config-SSH_secret.py  # Ejecuta el script de SSH
+
+      - name: Run Config-Routers Script
+        run: python secret/config-R_secret.py  # Ejecuta el script de configuración de routers
+
+      - name: Run Verify-Config Script
+        run: python secret/verify_config_secret.py  # Ejecuta el script de verificación
+
+      - name: Commit Results
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Automated configuration changes and verifications"
+          git push

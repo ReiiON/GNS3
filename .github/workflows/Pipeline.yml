@@ -1,0 +1,76 @@
+name: CI/CD para Configuración de Routers
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Trabajo 1: Pruebas
+  pruebas:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Configurar el repositorio
+      - name: Checar el código
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # Paso 3: Verificar estilo de código (opcional)
+      - name: Verificar estilo de código
+        run: |
+          pip install flake8
+          flake8 scripts/ --max-line-length=120
+
+      # Paso 4: Verificar configuración de routers
+      - name: Ejecutar pruebas de configuración
+        run: |
+          python scripts/verify_config.py
+
+      # Paso 5: Guardar resultados de las pruebas
+      - name: Guardar resultados de pruebas
+        uses: actions/upload-artifact@v3
+        with:
+          name: resultados-pruebas
+          path: test-results/
+
+  # Trabajo 2: Despliegue (depende de pruebas exitosas)
+  despliegue:
+    runs-on: ubuntu-latest
+    needs: pruebas # Este trabajo solo corre si el trabajo de pruebas fue exitoso
+
+    steps:
+      # Paso 1: Configurar el repositorio
+      - name: Checar el código
+        uses: actions/checkout@v3
+
+      # Paso 2: Configurar Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # Paso 3: Configurar routers
+      - name: Configurar Routers
+        run: |
+          python scripts/config-Routers.py
+
+      # Paso 4: Configurar SSH
+      - name: Configurar SSH
+        run: |
+          python scripts/config-SSH.py
+
+      # Paso 5: Guardar resultados del despliegue
+      - name: Guardar resultados del despliegue
+        uses: actions/upload-artifact@v3
+        with:
+          name: resultados-despliegue
+          path: deploy-results/
