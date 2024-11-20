@@ -18,3 +18,41 @@ GNS3-PYTHON
 │   │   └── your_script.py        # El script de Python que se ejecuta
 │   └── tests
 │       ├── common_config.txt     # Configuración común para todos los routers (también puede estar aquí)
+
+
+GNS3-PYTHON
+│
+├── GNS3
+│   ├── .github
+│   │   └── workflows
+│   │       ├── CI-CD.yml         # Configuración de CI/CD para GitHub Actions
+│   │       └── Pipeline.yml      # Definición de workflows para integración y despliegue
+│   ├── configs
+│   │   ├── devices.json          # Archivo con las credenciales de los dispositivos
+│   │   ├── R1.txt                # Configuración específica del router R1
+│   │   ├── R2.txt                # Configuración específica del router R2
+│   │   ├── R3.txt                # Configuración específica del router R3
+│   │   ├── config_ssh.txt        # Configuración relacionada con SSH
+│   │   └── common_config.txt     # Configuración común para todos los routers
+│   ├── results
+│   │   ├── R1_ip_routes.txt      # Resultado de las rutas IP del router R1
+│   │   ├── R1_running_config.txt # Configuración activa del router R1
+│   │   ├── R2_ip_routes.txt      # Resultado de las rutas IP del router R2
+│   │   └── ...                   # Otros resultados generados
+│   ├── scripts
+│   │   ├── config-Routers.py     # Script para configurar routers
+│   │   ├── config-SSH.py         # Script para configurar SSH
+│   │   └── verify_config.py      # Script para verificar configuraciones
+│   ├── secrets
+│   │   ├── config-R_secret.py    # Script con configuraciones sensibles o privadas
+│   │   ├── config-SSH_secret.py  # Versión privada del script SSH
+│   │   └── verify_config_secret.py # Script privado para validaciones
+│   ├── tests
+│   │   ├── common_config.txt     # Configuración común usada en las pruebas
+│   │   ├── R1.txt                # Archivo de prueba para el router R1
+│   │   └── ...                   # Otros archivos de prueba
+│   ├── text
+│   │   └── orden.txt             # Archivo con instrucciones o pasos a seguir
+│   ├── .gitignore                # Archivos y carpetas a ignorar por Git
+│   ├── README.md                 # Descripción del proyecto
+│   └── requirements.txt          # Lista de dependencias necesarias para Python
