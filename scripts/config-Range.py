@@ -3,6 +3,7 @@ import os
 
 
 # Función para generar dispositivos dinámicamente en un rango de IPs
+
 def generate_device_list(base_ip, start, end, username, password, device_type):
     devices = []
     for i in range(start, end + 1):
