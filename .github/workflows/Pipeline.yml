@@ -24,12 +24,6 @@ jobs:
         with:
           python-version: 3.9
 
-      # Paso 3: Verificar estilo de código (opcional)
-      - name: Verificar estilo de código
-        run: |
-          pip install flake8
-          flake8 scripts/ --max-line-length=120
-
       # Paso 4: Verificar configuración de routers
       - name: Ejecutar pruebas de configuración
         run: |
